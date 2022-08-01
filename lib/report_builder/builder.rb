@@ -1,3 +1,4 @@
+require 'oj'
 require 'json'
 require 'erb'
 require 'pathname'
@@ -24,7 +25,7 @@ module ReportBuilder
       json_report_path = options[:json_report_path] || options[:report_path]
       if options[:report_types].include? 'JSON'
         File.open(json_report_path + '.json', 'w') do |file|
-          file.write JSON.pretty_generate(groups.size > 1 ? groups : groups.first['features'])
+          file.write Oj.generate(groups.size > 1 ? groups : groups.first['features'])
         end
       end
 
